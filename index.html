@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Tugas</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="popup.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="popup.css">
+    <form action="upload_task_handler.php" method="POST" enctype="multipart/form-data" class="upload-task-form" id="uploadTaskForm">
+
+    <style>
+        /* CSS untuk Pop-up */
+        .popup {
+            display: none; /* Sembunyikan pop-up secara default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Latar belakang transparan */
+        }
+
+        .popup-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Lebar pop-up */
+            max-width: 600px; /* Lebar maksimum pop-up */
+        }
+
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <img src="/homepage/icons/Logo.png" alt="" class="logo">
+        <ul id="menu-links">
+            <li><a href="/homepage/index.html">Home</a></li>
+            <li><a href="/AllNews/index.html">News</a></li>
+            <li><a href="/ReviewTugas/index.html" class="active">Review Tugas</a></li>
+            <li><a href="/About/index.html">About us</a></li>
+        </ul>
+        <button class="nav-btn" onclick="login()">
+            Login<img src="/homepage/icons/login.png" alt="">
+        </button>
+        <img src="/homepage/icons/menu.png" alt="" class="menu-icon" onclick="toogleMenu()">
+    </nav> 
+
+
+    <section class="review-section">
+        <div class="hero-review">
+            <h1>REVIEW TUGAS</h1>
+            <p>The best platform to share, review and find inspiration for academic assignments.</p>
+            <a href="#" class="cta-button">Start Sharing Tasks</a>
+        </div>
+    </section>
+
+    <!-- Pop-up Upload Task -->
+    <div id="uploadTaskPopup" class="popup">
+        <div class="popup-content">
+            <span class="close-button" id="closePopup">&times;</span>
+            <h1>Unggah Tugas</h1>
+            <form action="/upload_task_handler" method="POST" enctype="multipart/form-data" class="upload-task-form" id="uploadTaskForm">
+                <label for="task-title">Judul Tugas:</label>
+                <input type="text" id="task-title" name="task_title" placeholder="Masukkan judul tugas" required>
+            
+                <label for="task-category">Kategori:</label>
+                <select id="task-category" name="task_category" required>
+                    <option value="science">PGSD</option>
+                    <option value="technology">PGPAUD</option>
+                    <option value="teaching">PSTI</option>
+                    <option value="social">SISTEL</option>
+                    <option value="law">MKB</option>
+                </select>
+            
+                <label for="task-description">Deskripsi:</label>
+                <textarea id="task-description" name="task_description" rows="5" placeholder="Deskripsikan tugasmu..." required></textarea>
+            
+                <label for="task-file">Unggah File Tugas:</label>
+                <input type="file" id="task-file" name="task_file" accept=".pdf,.doc,.docx,.ppt,.pptx" required>
+            
+                <div class="form-buttons">
+                    <button type="submit" class="submit-button" id="submitButton">Unggah Tugas</button>
+                    <button type="button" class="back-button" id="closePopup">Kembali</button>
+                </div>
+            
+                <div id="messageBox" style="margin-top: 10px;"></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Ambil elemen pop-up dan tombol
+        const popup = document.getElementById("uploadTaskPopup");
+        const openPopupButton = document.querySelector(".cta-button");
+        const closePopupButton = document.getElementById("closePopup");
+
+        // Tampilkan pop-up saat tombol diklik
+        openPopupButton.onclick = function() {
+            popup.style.display = "block";
+        }
+
+        // Sembunyikan pop-up saat tombol ditutup diklik
+        closePopupButton.onclick = function() {
+            popup.style.display = "none";
+        }
+
+        // Sembunyikan pop-up saat pengguna mengklik di luar pop-up
+        window.onclick = function(event) {
+            if (event.target == popup) {
+                popup.style.display = "none";
+            }
+        }
+    </script>
+    <script>
+        // Mendapatkan elemen pop-up dan tombol
+        const uploadTaskPopup = document.getElementById('uploadTaskPopup');
+        const closePopupButton = document.getElementById('closePopup');
+    
+        // Fungsi untuk menampilkan pop-up
+        function showPopup() {
+            uploadTaskPopup.style.display = 'flex'; // Tampilkan pop-up
+        }
+    
+        // Fungsi untuk menutup pop-up
+        function closePopup() {
+            uploadTaskPopup.style.display = 'none'; // Sembunyikan pop-up
+        }
+    
+        // Event listener untuk tombol close
+        closePopupButton.addEventListener('click', closePopup);
+    
+        // Contoh pemicu untuk membuka pop-up
+        document.getElementById('triggerPopupButton').addEventListener('click', showPopup);
+    </script>
+    
+
+<!-- Task Upload Section -->
+<section id="upload-task" class="task-upload">
+    <h2>Find Tasks</h2>
+    <form class="search-task-form" action="">
+        <input type="text" placeholder="Search for tasks by name or category..." class="task-search-input">
+        <button type="submit" class="task-search-button">Cari</button>
+    </form>
+</section>
+        <!-- Categories Section -->
+        <section class="categories">
+            <h2 class="section-title">Popular Categories</h2>
+            <div class="category-grid">
+                <div class="category-item">
+                    <h3>PGSD</h3>
+                    <p>Find assignments and reviews related to the PGSD study program</p>
+                </div>
+                <div class="category-item">
+                    <h3>PGPAUD</h3>
+                    <p>Find assignments and reviews related to the PGPAUD study program</p>
+                </div>
+                <div class="category-item">
+                    <h3>PSTI</h3>
+                    <p>Find assignments and reviews related to the PSTI study program<p>
+                </div>
+                <div class="category-item">
+                    <h3>SISTEL</h3>
+                    <p>Find assignments and reviews related to the SISTEL study program</p>
+                </div>
+                <div class="category-item">
+                    <h3>MKB</h3>
+                    <p>Find assignments and reviews related to the MKB study program</p>
+                </div>
+            </div>
+        </section>
+    
+        <footer>
+            <p>&copy; 2024 Ruang Kita. All rights reserved.</p>
+        </footer>
+    
+    
+</body>
+</html>
